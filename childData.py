@@ -64,7 +64,7 @@ def AttendByDay():
 
     c.execute('SELECT * FROM Attendence where date = ?', (dateSelection, ))
     table = c.fetchall()
-    table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time'))
+    table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time', 'name'))
     df = pd.DataFrame(table)
     df.columns = df.iloc[0]
     df = df[1:]

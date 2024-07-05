@@ -16,7 +16,7 @@ def GenerateQRCode():
     # Read data from the database
     c.execute('SELECT * FROM data')
     data = pd.DataFrame(c.fetchall())
-    data.columns = ['ID', 'Name', 'Age', 'Parent Name', 'Phone Number']
+    data.columns = ['ID', 'Name', 'Age', 'Parent Name', 'Phone Number', 'Level']
 
     # Select a name from the available options
     name = st.selectbox('Select a name', data['Name'].unique())
