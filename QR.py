@@ -7,7 +7,7 @@ import qrcode
 import pandas as pd
 import datetime
 from datetime import datetime, timedelta
-import Card
+# import Card
 
 
 
@@ -86,8 +86,8 @@ def GenerateQRCode():
                 file_name='{} qr.png'.format(name),
                 mime='image/png', 
             )
-            if st.button("create Card"):
-                Card.cardName(getIDFromName(name))
+            # if st.button("create Card"):
+            #     Card.cardName(getIDFromName(name))
 
     else:
         st.warning("Please select a name to generate QR code.")
