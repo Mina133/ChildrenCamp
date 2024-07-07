@@ -9,6 +9,20 @@ import datetime
 from datetime import datetime, timedelta
 import Card
 
+
+
+def get_name_from_id(id):
+    """Retrieves the name from the database based on the provided ID."""
+    conn = sqlite3.connect('data.db')
+    c = conn.cursor()
+    c.execute('SELECT Name FROM data WHERE ID=?', (id,))
+    name = c.fetchone()
+    if name:
+        return name[0]  # Return the first element (name) from the tuple
+    else:
+        return None
+    
+    
 def getIDFromName(name):
     """Retrieves the ID from the database based on the provided name."""
     conn = sqlite3.connect('data.db')
@@ -83,17 +97,6 @@ def GenerateQRCode():
    
 
 
-
-def get_name_from_id(id):
-    """Retrieves the name from the database based on the provided ID."""
-    conn = sqlite3.connect('data.db')
-    c = conn.cursor()
-    c.execute('SELECT Name FROM data WHERE ID=?', (id,))
-    name = c.fetchone()
-    if name:
-        return name[0]  # Return the first element (name) from the tuple
-    else:
-        return None
 
 current_time = datetime.now()
 formatted_date = current_time.strftime("%Y-%m-%d")
