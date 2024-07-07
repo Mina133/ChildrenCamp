@@ -7,6 +7,29 @@ import qrcode
 import pandas as pd
 import datetime
 from datetime import datetime, timedelta
+import Card
+
+def getIDFromName(name):
+    """Retrieves the ID from the database based on the provided name."""
+    conn = sqlite3.connect('data.db')
+    c = conn.cursor()
+    c.execute('SELECT ID FROM data WHERE Name=?', (name,))
+    ID = c.fetchone()
+    if ID:
+        return ID[0]  # Return the first element (ID) from the tuple
+    else:
+        return None
+
+def getLevelfromID(id):
+    """Retrieves the level from the database based on the provided ID."""
+    conn = sqlite3.connect('data.db')
+    c = conn.cursor()
+    c.execute('SELECT Level FROM data WHERE ID=?', (id,))
+    level = c.fetchone()
+    if level:
+        return level[0]  # Return the first element (level) from the tuple
+    else:
+        return None
 
 def GenerateQRCode():
     # Connect to the SQLite database
@@ -49,11 +72,16 @@ def GenerateQRCode():
                 file_name='{} qr.png'.format(name),
                 mime='image/png', 
             )
+            if st.button("create Card"):
+                Card.cardName(getIDFromName(name))
 
     else:
         st.warning("Please select a name to generate QR code.")
 
     conn.close()
+
+   
+
 
 
 def get_name_from_id(id):
