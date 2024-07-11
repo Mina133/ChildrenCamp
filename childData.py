@@ -57,7 +57,11 @@ def AttendByDay():
     
     conn = sqlite3.connect('data.db')
     c = conn.cursor()
-    c.execute('CREATE TABLE IF NOT EXISTS Attendence (Aid Integer primary key, Cid INTEGER NOT NULL, FOREIGN KEY (Cid) REFERENCES data(id), date TEXT, enter text, leave text);')
+    c.execute('''CREATE TABLE IF NOT EXISTS Attendence (Aid Integer primary key, Cid INTEGER NOT NULL,
+    FOREIGN KEY (Cid) REFERENCES data(id),
+    date TEXT,
+    enter text,
+    leave text);''')
     c.execute('SELECT date FROM Attendence')
     dates = c.fetchall()
     dates = list(set([date[0] for date in dates]))
