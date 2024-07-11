@@ -61,7 +61,7 @@ def AttendByDay():
     dates = list(set([date[0] for date in dates]))
     dateSelection = st.selectbox('Select Date', dates)
 
-
+    c.execute('CREATE TABLE IF NOT EXISTS Attendence (Aid Integer primary key, FOREIGN KEY (Cid) REFERENCES data(id), entr text, leave text);')
     c.execute('SELECT * FROM Attendence where date = ?', (dateSelection, ))
     table = c.fetchall()
     table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time'))
