@@ -1,10 +1,10 @@
-import sqlite3
+# import sqlite3
 
-conn = sqlite3.connect('data.db')
-c= conn.cursor()
-c.execute("DROP TABLE Attendence")    
-conn.commit()
-conn.close()  # Close the database connection
+# conn = sqlite3.connect('data.db')
+# c= conn.cursor()
+# c.execute("DROP TABLE Attendence")    
+# conn.commit()
+# conn.close()  # Close the database connection
 
 # install: pip install --upgrade arabic-reshaper
 # import arabic_reshaper
@@ -16,6 +16,6 @@ conn.close()  # Close the database connection
 # reshaped_text = arabic_reshaper.reshape(text)    # correct its shape
 # bidi_text = get_display(reshaped_text)
 
-# import sys
-# text = "اطبع هذا النص".encode("utf-8")
-# sys.stdout.buffer.write(text)
+import sys
+text = "اطبع هذا النص".encode("utf-8")
+sys.stdout.buffer.write(text)

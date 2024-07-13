@@ -52,24 +52,43 @@ current_time = datetime.now()
 formatted_date = current_time.strftime("%Y-%m-%d")
 formatted_time = current_time.time().strftime("%H:%M:%S")
 
-
 def AttendByDay():
+    
+    """
+    Fetches and displays attendance data for a selected date.
+    """
+
+    # Connect to the database
     conn = sqlite3.connect('data.db')
-    c = conn.cursor()
-    c.execute('SELECT date FROM Attendence')
-    dates = c.fetchall()
-    dates = list(set([date[0] for date in dates]))
-    dateSelection = st.selectbox('Select Date', dates)
 
+    # Create the table if it doesn't exist (simplified)
+    cursor = conn.cursor()
+    try:
+        cursor.execute('CREATE TABLE IF NOT EXISTS Attendence (Aid INTEGER PRIMARY KEY AUTOINCREMENT, Cid INTEGER FORIGN KEY REFRENCE data(id), Cname TEXT , date TEXT,  enter TEXT, leave TEXT)')
+        conn.commit()
+    except sqlite3.Error as e:
+        # Handle any table creation errors (optional)
+        pass  # Or print an error message
 
-    c.execute('SELECT * FROM Attendence where date = ?', (dateSelection, ))
-    table = c.fetchall()
-    table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time', 'name'))
-    df = pd.DataFrame(table)
-    df.columns = df.iloc[0]
-    df = df[1:]
+    # Get a list of available dates
+    cursor.execute('SELECT date FROM Attendence')
+    dates = [row[0] for row in cursor.fetchall()]
+    unique_dates = list(set(dates))  # Remove duplicates
 
-    st.table(df)
+    # Display a date selection box
+    dateSelection = st.selectbox('Select Date', unique_dates)
+
+    # Fetch data for the selected date
+    cursor.execute('SELECT * FROM Attendence WHERE date = ?', (dateSelection,))
+    table = cursor.fetchall()
+
+    # Display the data or a message if no data exists
+    if table:
+        df = pd.DataFrame(table)
+        df.columns = ['ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time']
+        st.table(df)
+    else:
+        st.info('No data available for the selected date.')
+
+    # Close the connection
     conn.close()
-
-        
