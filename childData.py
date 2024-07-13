@@ -68,7 +68,7 @@ def AttendByDay():
     table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time', 'name'))
     df = pd.DataFrame(table)
     df.columns = df.iloc[0]
-    
+
     # Display the data or a message if no data exists
     if table:
         df = pd.DataFrame(table)
