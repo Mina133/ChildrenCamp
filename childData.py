@@ -53,37 +53,10 @@ formatted_date = current_time.strftime("%Y-%m-%d")
 formatted_time = current_time.time().strftime("%H:%M:%S")
 
 def AttendByDay():
-    
-<<<<<<< HEAD
-    """
-    Fetches and displays attendance data for a selected date.
-    """
 
-    # Connect to the database
-    conn = sqlite3.connect('data.db')
-
-    # Create the table if it doesn't exist (simplified)
-    cursor = conn.cursor()
-    try:
-        cursor.execute('CREATE TABLE IF NOT EXISTS Attendence (Aid INTEGER PRIMARY KEY AUTOINCREMENT, Cid INTEGER FORIGN KEY REFRENCE data(id), Cname TEXT , date TEXT,  enter TEXT, leave TEXT)')
-        conn.commit()
-    except sqlite3.Error as e:
-        # Handle any table creation errors (optional)
-        pass  # Or print an error message
-
-    # Get a list of available dates
-    cursor.execute('SELECT date FROM Attendence')
-    dates = [row[0] for row in cursor.fetchall()]
-    unique_dates = list(set(dates))  # Remove duplicates
-=======
     conn = sqlite3.connect('data.db')
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS Attendence(Aid Integer primary key,
-    Cid INTEGER NOT NULL,
-    FOREIGN KEY (Cid) REFERENCES data(id),
-    date TEXT,
-    enter text,
-    leave text);''')
+    c.execute('CREATE TABLE IF NOT EXISTS Attendence (Aid INTEGER NOT NULL PRIMARY KEY, Cid FOREIGNKEY REFERENCES data(id), date TEXT, enter TEXT, leave TEXT)')
     c.execute('SELECT date FROM Attendence')
     dates = c.fetchall()
     dates = list(set([date[0] for date in dates]))
@@ -95,27 +68,16 @@ def AttendByDay():
     table.insert(0, ('ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time', 'name'))
     df = pd.DataFrame(table)
     df.columns = df.iloc[0]
-    df = df[1:]
->>>>>>> 824354a1f6e4ee8067c070e7dcd7fd1cf3e1dc5c
-
-    # Display a date selection box
-    dateSelection = st.selectbox('Select Date', unique_dates)
-
-<<<<<<< HEAD
-    # Fetch data for the selected date
-    cursor.execute('SELECT * FROM Attendence WHERE date = ?', (dateSelection,))
-    table = cursor.fetchall()
-
+    
     # Display the data or a message if no data exists
     if table:
         df = pd.DataFrame(table)
-        df.columns = ['ID', 'Child ID', 'Date', 'Enter Time', 'Leave Time']
+        df = df[1:]
+        df.columns = ['ID', 'Child ID','Date', 'Enter Time', 'Leave Time',  'NONE']
         st.table(df)
     else:
         st.info('No data available for the selected date.')
 
     # Close the connection
     conn.close()
-=======
-        
->>>>>>> 824354a1f6e4ee8067c070e7dcd7fd1cf3e1dc5c
+
