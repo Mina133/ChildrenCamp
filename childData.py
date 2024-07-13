@@ -54,7 +54,7 @@ formatted_time = current_time.time().strftime("%H:%M:%S")
 
 def AttendByDay():
     
-<<<<<<< HEAD
+
     """
     Fetches and displays attendance data for a selected date.
     """
@@ -75,7 +75,7 @@ def AttendByDay():
     cursor.execute('SELECT date FROM Attendence')
     dates = [row[0] for row in cursor.fetchall()]
     unique_dates = list(set(dates))  # Remove duplicates
-=======
+
     conn = sqlite3.connect('data.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS Attendence(Aid Integer primary key,
@@ -96,12 +96,12 @@ def AttendByDay():
     df = pd.DataFrame(table)
     df.columns = df.iloc[0]
     df = df[1:]
->>>>>>> 824354a1f6e4ee8067c070e7dcd7fd1cf3e1dc5c
+
 
     # Display a date selection box
     dateSelection = st.selectbox('Select Date', unique_dates)
 
-<<<<<<< HEAD
+
     # Fetch data for the selected date
     cursor.execute('SELECT * FROM Attendence WHERE date = ?', (dateSelection,))
     table = cursor.fetchall()
@@ -116,6 +116,4 @@ def AttendByDay():
 
     # Close the connection
     conn.close()
-=======
-        
->>>>>>> 824354a1f6e4ee8067c070e7dcd7fd1cf3e1dc5c
+
