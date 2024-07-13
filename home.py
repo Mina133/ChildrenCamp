@@ -2,7 +2,7 @@ import sqlite3
 import streamlit as st
 import pandas as pd
 import QR
-import childData 
+import childData as CD
 
 
 
@@ -20,10 +20,10 @@ if __name__ == '__main__':
     if currentPage == 'home':
         home()
     elif currentPage == 'Add Data':
-       childData.AddData()
+       CD.AddData()
     
     elif currentPage == 'View Data':
-        childData.ViewData()
+        CD.ViewData()
 
     elif currentPage == 'QR Code':
         QR.GenerateQRCode()
